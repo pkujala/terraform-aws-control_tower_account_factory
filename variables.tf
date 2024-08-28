@@ -188,17 +188,23 @@ variable "aft_feature_delete_default_vpcs_enabled" {
 
 
 variable "vcs_provider" {
-  description = "Customer VCS Provider - valid inputs are codecommit, bitbucket, github, or githubenterprise"
+  description = "Customer VCS Provider - valid inputs are codecommit, bitbucket, github, githubenterprise, gitlab, gitlabselfmanaged"
   type        = string
   default     = "codecommit"
   validation {
-    condition     = contains(["codecommit", "bitbucket", "github", "githubenterprise"], var.vcs_provider)
-    error_message = "Valid values for var: vcs_provider are (codecommit, bitbucket, github, githubenterprise)."
+    condition     = contains(["codecommit", "bitbucket", "github", "githubenterprise", "gitlab", "gitlabselfmanaged"], var.vcs_provider)
+    error_message = "Valid values for var: vcs_provider are (codecommit, bitbucket, github, githubenterprise, gitlab, gitlabselfmanaged)."
   }
 }
 
 variable "github_enterprise_url" {
   description = "GitHub enterprise URL, if GitHub Enterprise is being used"
+  type        = string
+  default     = "null"
+}
+
+variable "gitlab_self_managed_url" {
+  description = "GitLab self-managed URL, if GitLab self-managed is being used"
   type        = string
   default     = "null"
 }

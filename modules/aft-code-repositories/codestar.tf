@@ -34,3 +34,32 @@ resource "aws_codestarconnections_host" "githubenterprise" {
     }
   }
 }
+
+resource "aws_codestarconnections_connection" "gitlab" {
+  count         = local.vcs.is_gitlab ? 1 : 0
+  name          = "ct-aft-gitlab-connection"
+  provider_type = "GitLab"
+  
+}
+
+resource "aws_codestarconnections_connection" "gitlabselfmanaged" {
+  count         = local.vcs.is_gitlabselfmanaged ? 1 : 0
+  name          = "ct-aft-gitlab-self-managed-connection"
+  provider_type = "GitLabSelfManaged"
+}
+
+resource "aws_codestarconnections_host" "gitlabselfmanaged" {
+  count             = local.vcs.is_github_enterprise ? 1 : 0
+  name              = "gitlab-self-managed-host"
+  provider_endpoint = var.github_enterprise_url
+  provider_type     = "GitLabSelfManaged"
+
+  dynamic "vpc_configuration" {
+    for_each = var.aft_enable_vpc ? [1] : []
+    content {
+      security_group_ids = var.security_group_ids
+      subnet_ids         = var.subnet_ids
+      vpc_id             = var.vpc_id
+    }
+  }
+}
