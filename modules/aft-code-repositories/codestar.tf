@@ -44,7 +44,7 @@ resource "aws_codestarconnections_connection" "gitlab" {
 
 resource "aws_codestarconnections_connection" "gitlabselfmanaged" {
   count         = local.vcs.is_gitlabselfmanaged ? 1 : 0
-  name          = "ct-aft-gitlab-self-managed-connection"
+  name          = "ct-aft-gitlab-self-managed-conn"
   provider_type = "GitLabSelfManaged"
 }
 
