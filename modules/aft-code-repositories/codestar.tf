@@ -49,9 +49,9 @@ resource "aws_codestarconnections_connection" "gitlabselfmanaged" {
 }
 
 resource "aws_codestarconnections_host" "gitlabselfmanaged" {
-  count             = local.vcs.is_github_enterprise ? 1 : 0
+  count             = local.vcs.is_gitlabselfmanaged ? 1 : 0
   name              = "gitlab-self-managed-host"
-  provider_endpoint = var.github_enterprise_url
+  provider_endpoint = var.gitlab_self_managed_url
   provider_type     = "GitLabSelfManaged"
 
   dynamic "vpc_configuration" {
