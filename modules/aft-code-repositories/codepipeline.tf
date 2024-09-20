@@ -8,7 +8,6 @@
 resource "aws_codepipeline" "codecommit_account_request" {
   count         = local.vcs.is_codecommit ? 1 : 0
   name          = "ct-aft-account-request"
-  pipeline_type = "V2"
   role_arn      = aws_iam_role.account_request_codepipeline_role.arn
 
   artifact_store {
@@ -114,7 +113,6 @@ resource "aws_cloudwatch_event_target" "account_request" {
 resource "aws_codepipeline" "codestar_account_request" {
   count         = local.vcs.is_codecommit ? 0 : 1
   name          = "ct-aft-account-request"
-  pipeline_type = "V2"
   role_arn      = aws_iam_role.account_request_codepipeline_role.arn
 
   artifact_store {
@@ -180,7 +178,6 @@ resource "aws_codepipeline" "codestar_account_request" {
 resource "aws_codepipeline" "codecommit_account_provisioning_customizations" {
   count         = local.vcs.is_codecommit ? 1 : 0
   name          = "ct-aft-account-provisioning-customizations"
-  pipeline_type = "V2"
   role_arn      = aws_iam_role.account_provisioning_customizations_codepipeline_role.arn
 
   artifact_store {
@@ -247,7 +244,6 @@ resource "aws_codepipeline" "codecommit_account_provisioning_customizations" {
 resource "aws_codepipeline" "codestar_account_provisioning_customizations" {
   count         = local.vcs.is_codecommit ? 0 : 1
   name          = "ct-aft-account-provisioning-customizations"
-  pipeline_type = "V2"
   role_arn      = aws_iam_role.account_provisioning_customizations_codepipeline_role.arn
 
   artifact_store {
